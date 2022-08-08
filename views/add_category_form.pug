@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    a(href='/') Home Page
+    p Add Category form LOL!
+    form(method='POST', action='/categories/')
+        label Name
+        input(placeholder='Savory')
+        label Description
+        input(placeholder='For food that tastes great')
+        input(type='submit')
