@@ -21,7 +21,7 @@ exports.getGood = (req, res, next) => {
     res.render('good', {title: 'getting good!'})
 }
 
-//PUT 'goods/'
+//POST 'goods/update/:id'
 exports.updateGood = (req, res, next) => {
     res.redirect('/')
 }
@@ -31,7 +31,7 @@ exports.updateGoodForm = (req, res, next) => {
     res.render('update_good_form', {title: 'deleting good!'})
 }
 
-//DELETE 'goods/:id'
+//POST 'goods/delete/:id'
 exports.deleteGood = (req, res, next) => {
     res.redirect('/')
 }

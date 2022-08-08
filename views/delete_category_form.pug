@@ -3,9 +3,9 @@ extends layout
 block content
     a(href='/') Home Page
     p Delete Category Form  LOL!
-    form(method='POST', action='/categories/')
+    form(method='POST', action=`/categories/delete/${id}`)
         label Name
         input(placeholder='Savory')
         label Description
         input(placeholder='For food that tastes great')
-        input(type='submit')
+        input(type='submit' value='delete')

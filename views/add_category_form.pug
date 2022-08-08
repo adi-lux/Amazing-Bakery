@@ -4,8 +4,8 @@ block content
     a(href='/') Home Page
     p Add Category form LOL!
     form(method='POST', action='/categories/')
-        label Name
-        input(placeholder='Savory')
-        label Description
-        input(placeholder='For food that tastes great')
+        label(for='name-category') Name
+        input(placeholder='Savory' name='name' id='name-category')
+        label(for='describe-category') Description
+        input(placeholder='For food that tastes great' name='description' id='describe-category')
         input(type='submit')

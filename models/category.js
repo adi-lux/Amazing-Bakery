@@ -9,4 +9,4 @@ const CategorySchema = new Schema({
 CategorySchema.virtual('url')
               .get(function () {return `categories/${this.id}`})
 
-exports.default = mongoose.model('category', CategorySchema)
+module.exports = mongoose.model('Category', CategorySchema)

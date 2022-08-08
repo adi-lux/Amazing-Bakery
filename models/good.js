@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const goodSchema = new Schema({
     name: String,
-    category: {type: 'ObjectId', ref: 'Category'},
+    category: {type: Schema.Types.ObjectId, ref: 'Category'},
     price: Number,
     stock: Number,
 })
@@ -12,4 +12,4 @@ goodSchema
     .virtual('url')
     .get(function () {return `items/${this.id}`})
 
-exports.default = mongoose.model('good', goodSchema)
+module.exports = mongoose.model('Good', goodSchema)

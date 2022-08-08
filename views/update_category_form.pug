@@ -3,3 +3,9 @@ extends layout
 block content
     a(href='/') Home Page
     p Update Category Form LOL!
+    form(method='POST', action=`/categories/update/${id}`)
+        label(for='name-category') Name
+        input(value=name name='name' id='name-category')
+        label(for='describe-category') Description
+        input(value=description name='description' id='describe-category')
+        input(type='submit')
