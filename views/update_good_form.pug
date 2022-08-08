@@ -3,3 +3,22 @@ extends layout
 block content
     a(href='/') Home Page
     p Update Good Form LOL!
+    form(method='POST', action=`/goods/update/${id}`)
+        label(for='name-good') Name
+        input(value=name name='name' id='name-good')
+        br
+        label(for='good-category') Category
+        select(name='category' id='good-category')
+            each cat in categoryList
+                if cat.name === category
+                    option(value=category)= cat.name
+                else
+                    option(value=cat.name)= cat.name
+        br
+        label(for='price') Price
+        input(value=price name='price' id='price')
+        br
+        label(for='stock') Stock
+        input(value=stock name='stock' id='stock')
+        br
+        input(type='submit')

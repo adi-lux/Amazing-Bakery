@@ -9,6 +9,5 @@ router.get('/:id', categoryController.getCategory) // R
 router.post('/update/:id', categoryController.updateCategory) // U
 router.get('/update/:id', categoryController.updateCategoryForm) // U
 router.post('/delete/:id', categoryController.deleteCategory) // D
-router.get('/delete/:id', categoryController.deleteCategoryForm) // D
 
 module.exports = router;

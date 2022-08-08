@@ -10,6 +10,6 @@ const goodSchema = new Schema({
 
 goodSchema
     .virtual('url')
-    .get(function () {return `items/${this.id}`})
+    .get(function () {return `goods/${this.id}`})
 
 module.exports = mongoose.model('Good', goodSchema)

@@ -3,3 +3,12 @@ extends layout
 block content
     a(href='/') Home Page
     p Good LOL!
+    b= good.name
+    br
+    a(href=`/categories/${category.id}`)= category.name
+    p= good.price
+    p= good.stock
+    a(href=`/goods/update/${good.id}`)
+        button Update #{good.name}
+    form(method='POST', action=`/goods/delete/${good.id}`)
+        input(type='submit' value= `Delete ${good.name}`)

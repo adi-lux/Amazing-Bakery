@@ -1,18 +1,20 @@
 const Category = require('../models/category')
 const Good = require('../models/good')
-
 //POST: 'categories/'
-exports.addCategory = async (req, res, next) => {
+exports.addCategory =[
+    async (req, res, next) => {
     //req.body.name, req.body.description
     //add category to database
+
     try {
         await new Category({name: req.body.name, description: req.body.description}).save()
         res.redirect('/categories')
     } catch (e) { return next(e) }
-}
+}]
 
 //GET 'categories/add/'
-exports.addCategoryForm = async (req, res, next) => {
+exports.addCategoryForm =
+    async (req, res, next) => {
     try {
         res.render('add_category_form', {title: 'adding category!'})
 
@@ -37,7 +39,10 @@ exports.getCategory = async (req, res, next) => {
 }
 
 //POST 'categories/update/:id'
-exports.updateCategory = async (req, res, next) => {
+exports.updateCategory = [
+    body('name').trim().isLength({min: 1}).escape().withMessage('Please enter title'),
+    body('description').trim().isLength({min: 1}).escape().withMessage('Please enter a description'),
+    async (req, res, next) => {
     try {
         await Category.findByIdAndUpdate(req.params.id, {
             name: req.body.name,
@@ -45,7 +50,7 @@ exports.updateCategory = async (req, res, next) => {
         })
         res.redirect(`/categories/${req.params.id}`)
     } catch (e) { return next(e) }
-}
+}]
 
 //GET 'categories/update/:id'
 exports.updateCategoryForm = async (req, res, next) => {
@@ -64,15 +69,10 @@ exports.updateCategoryForm = async (req, res, next) => {
 //POST 'categories/delete/:id'
 exports.deleteCategory = async (req, res, next) => {
     try {
-        await Good.deleteMany({category: req.params.id})
+        console.log(req.params.id)
+        const category =  await Category.findById(req.params.id)
+        await Good.deleteMany({category: category})
         await Category.findByIdAndDelete(req.params.id)
         res.redirect('/categories')
-    } catch (e) {return next(e)}
-}
-
-//GET 'categories/delete/:id'
-exports.deleteCategoryForm = async (req, res, next) => {
-    try {
-        res.render('delete_category_form', {title: 'deleting category!'})
     } catch (e) {return next(e)}
 }

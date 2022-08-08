@@ -2,4 +2,11 @@ extends layout
 
 block content
     a(href='/') Home Page
-    p Good  List LOL!
+    p Good List LOL!
+    ul
+        each good in goods
+            li
+                a(href=good.url) #{good.name}
+
+        a(href='/goods/add')
+            button Add Good

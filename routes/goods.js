@@ -9,6 +9,5 @@ router.get('/:id', goodController.getGood) // R
 router.post('/update/:id', goodController.updateGood) // U
 router.get('/update/:id', goodController.updateGoodForm) // U
 router.post('/delete/:id', goodController.deleteGood) // D
-router.get('/delete/:id', goodController.deleteGoodForm) // D
 
 module.exports = router;

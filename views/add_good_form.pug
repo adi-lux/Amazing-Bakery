@@ -3,3 +3,16 @@ extends layout
 block content
     a(href='/') Home Page
     p Add Good form LOL!
+
+    form(method='POST', action='/goods')
+        label(for='name-good') Name
+        input(placeholder='Savory' name='name' id='name-good')
+        label(for='good-category') Category
+        select(name='category' id='good-category')
+            each category in categoryList
+                option(value=category.name)= category.name
+        label(for='price') Price
+        input(placeholder='20.32' name='price' id='price')
+        label(for='stock') Stock
+        input(placeholder='500' name='stock' id='stock')
+        input(type='submit')

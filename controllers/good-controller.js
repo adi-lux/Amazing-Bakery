@@ -1,42 +1,81 @@
 const Good = require('../models/good')
+const Category = require("../models/category");
+
+// name, category, price, stock
 
 //POST: 'goods/'
-exports.addGood = (req, res, next) => {
-    res.redirect('/')
+exports.addGood = async (req, res, next) => {
+    try {
+        const category = await Category.findOne({name: req.body.category}).exec()
+        await new Good({name: req.body.name, category: category, stock: req.body.stock, price: req.body.price}).save()
+        res.redirect('/goods')
+    } catch (e) { return next(e) }
 }
 
 //GET 'goods/add/'
-exports.addGoodForm = (req, res, next) => {
+exports.addGoodForm = async (req, res, next) => {
     //GET FUNCTION -> FORM VIEW USES POST
-    res.render('add_good_form', {title: 'adding good!'})
+    try {
+        const categoryList = await Category.find({}).exec()
+        res.render('add_good_form', {title: 'adding good!', categoryList: categoryList})
+    }
+    catch(e) {return next(e)}
 }
 
 //GET 'goods/'
-exports.getGoods = (req, res, next) => {
-    res.render('good_list', {title: 'getting goods!'})
+exports.getGoods = async (req, res, next) => {
+    try {
+        const goodList = await Good.find({}).exec()
+        res.render('good_list', {title: 'getting goods!', goods: goodList})
+    }
+    catch (e) {return next(e)}
 }
 
 //GET 'goods/:id'
-exports.getGood = (req, res, next) => {
-    res.render('good', {title: 'getting good!'})
+exports.getGood = async (req, res, next) => {
+    try {
+        const good = await Good.findById(req.params.id).exec()
+        const category = await Category.findById(good.category).exec()
+        res.render('good', {title: 'getting good!', good: good, category: category})
+    }
+    catch(e) {return next(e)}
 }
 
 //POST 'goods/update/:id'
-exports.updateGood = (req, res, next) => {
-    res.redirect('/')
+exports.updateGood = async (req, res, next) => {
+    try {
+        const category = await Category.findOne({name: req.body.category}).exec()
+        await Good.findByIdAndUpdate(req.params.id, {
+            name: req.body.name,
+            category: category,
+            stock: req.body.stock,
+            price: req.body.price
+        })
+        res.redirect(`/goods/${req.params.id}`)
+    } catch (e) { return next(e) }
 }
 
 //GET 'goods/update/:id'
-exports.updateGoodForm = (req, res, next) => {
-    res.render('update_good_form', {title: 'deleting good!'})
+exports.updateGoodForm = async (req, res, next) => {
+    try {
+        const categoryList = await Category.find({}).exec()
+        const {name, category, price, stock} = await Good.findById(req.params.id).exec()
+        res.render('update_good_form', {
+            title: 'deleting category!',
+            id: req.params.id,
+            name: name,
+            category: category,
+            price: price,
+            stock: stock,
+            categoryList: categoryList
+        })
+    } catch (e) { return next(e) }
 }
 
 //POST 'goods/delete/:id'
-exports.deleteGood = (req, res, next) => {
-    res.redirect('/')
-}
-
-//GET 'goods/delete/:id'
-exports.deleteGoodForm = (req, res, next) => {
-    res.render('delete_good_form', {title: 'deleting good!'})
+exports.deleteGood = async (req, res, next) => {
+    try {
+        await Good.findByIdAndDelete(req.params.id)
+        res.redirect('/goods')
+    } catch (e) { return next(e) }
 }

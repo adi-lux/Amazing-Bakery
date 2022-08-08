@@ -6,9 +6,9 @@ block content
     p= category.name
     p= category.description
     each good in goods
-        a(href=good.url)= good.name
+        a(href=`/${good.url}`)= good.name
         br
     a(href=`/categories/update/${category.id}`)
         button Edit
-    a(href=`/categories/delete/${category.id}`)
+    form(method='POST', action=`/categories/delete/${category.id}`)
         button Delete
